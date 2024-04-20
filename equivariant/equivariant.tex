@@ -1,0 +1,362 @@
+\documentclass{scrartcl}
+
+\usepackage{amsmath,amsthm,latexsym}
+\usepackage{amssymb}
+\usepackage[mathscr]{euscript}
+\usepackage{mathtools}
+\usepackage[bitstream-charter]{mathdesign} 
+\usepackage[T1]{fontenc}
+
+\usepackage[all,arc]{xy}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+
+\usepackage[textwidth=2.65cm,textsize=scriptsize,color=orange!40,linecolor=green!40!black,colorinlistoftodos]{todonotes} 
+
+\usepackage[hidelinks]{hyperref}
+\hypersetup{colorlinks=true, linkcolor=teal, urlcolor=teal, citecolor=purple}
+
+\newcommand{\textbi}[1]{\textbf{\textit{#1}}}
+
+\newcommand{\C}{\mathscr{C}}
+\newcommand{\D}{\mathscr{D}}
+\newcommand{\F}{\mathscr{F}}
+\newcommand{\N}{\mathscr{N}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bfO}{\mathbf{O}}
+\newcommand{\cS}{\mathscr{S}}
+\newcommand{\X}{\mathscr{X}}
+
+\newcommand{\Top}{\mathscr{T}\mathrm{op}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Obj}{\mathrm{Obj}}
+\newcommand{\Ho}{\mathrm{Ho}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\const}{\mathrm{const}}
+\newcommand{\Set}{\cS\mathrm{et}}
+\newcommand{\sS}{s\cS}
+\newcommand{\Fun}{\mathrm{Fun}}
+\newcommand{\Aut}{\mathrm{Aut}}
+\newcommand{\Map}{\mathrm{Map}}
+\newcommand{\Nat}{\mathrm{Nat}}
+\newcommand{\Sq}{\mathrm{Sq}}
+\newcommand{\colim}{\mathrm{colim}}
+
+\swapnumbers
+\newtheorem{defin}[subsection]{Definition}
+\newtheorem{prop}[subsection]{Proposition}
+\newtheorem{cor}[subsection]{Corollary}
+\newtheorem{lem}[subsection]{Lemma}
+\newtheorem{thm}[subsection]{Theorem}
+\newtheorem{rem}[subsection]{Remark}
+\newtheorem{ex}[subsection]{Example}
+\newtheorem{cons}[subsection]{Construction}
+
+\title{Talk 3: Equivariant Orthogonal Spectra}
+\author{Theofanis Chatzidiamantis-Christoforidis}
+\date{April 2024}
+
+\begin{document}
+
+\renewcommand{\abstractname}{\vspace{-\baselineskip}}
+
+\maketitle
+\begin{abstract}
+   These notes are mostly a (condensed) combination of \cite[3.1]{GHT} and \cite[1-3]{Sch23}. If you spot any mistakes or typos, please contact me at \href{mailto:s92tchat@uni-bonn.de}{s92tchat@uni-bonn.de}. 
+\end{abstract}
+
+\todo[inline, color=purple!40, size=large]{I timed the talk, the smash-mapping space adjunction and the final proof probably have to be left out.}
+
+\section{Preliminaries}
+
+\begin{defin}
+    The $n$-th \textbi{orthogonal group} $O(n)$ is the group of isometries of $\bR^n$ as a euclidean vector space (i.e., preserving the origin). As a matrix group, $$O(n)=\{A\in GL_n(\bR)\ |\ A^TA=AA^T=I_n\}$$ is the subgroup of $GL_n(\bR)$ of all orthogonal matrices. 
+    \par Generalizing the first presentation, we similarly write $O(V)$ for the orthogonal group of an arbitrary real finite-dimensional inner product space $V$.
+\end{defin}
+
+Recall that a \textbi{representation} of a group $G$ (or $G$-representation) on a $K$-vector space $V$ is a group homomorphism $G\to GL(V)$. If $V$ is $n$-dimensional for some finite $n$, we can choose a basis and identify $GL(V)$ with $GL_n(K)$.
+\par We can also view a representation as a \textit{linear} group action $G\times V\to V$: For a homomorphism $\rho:G\to GL(V)$, define the associated action to be $(g, v)\mapsto \rho(g)v$. Conversely, for a linear group action $a:G\times V\to V$, use the representation sending $g$ to the matrix associated to the linear map $a(g)$.
+
+\begin{rem}
+    In common notation, we sometimes identify the vector space $V$ with the representation.
+\end{rem}
+
+\begin{defin}
+    An \textbi{orthogonal representation} of a group $G$ is a homomorphism $G\to O(V)$ for an inner product space $V$. 
+\end{defin} \todo{Do we always mean orthogonal representations? investigate.}
+When viewed as an action, this means that $G$ acts on $V$ by linear isometries.
+
+\begin{defin}
+    We denote by $RO(G)$ the group completion of the monoid of isomorphism classes of orthogonal $G$-representations.
+\end{defin}
+
+\begin{rem}
+    Note that every orthogonal representation is just a representation with a restriction on its image. If $V$ is a finite dimensional real inner product space, we can reformulate the definition: An orthogonal $G$-representation is an action of $G$ on $V$ by linear isometries.
+\end{rem}
+
+\begin{defin}
+    Let $G$ be a finite group. The \textbi{regular representation} $\rho_G$ of $G$ is the free vector space $\bR[G]$ together with the action
+    \begin{align*}
+        G\times \bR[G]&\to \bR[G] \\
+        (g, \sum_ir_ih_i)&\mapsto \sum_ir_i(gh_i)
+    \end{align*}
+\end{defin}
+
+\begin{defin}
+\begin{itemize}
+    \item[] 
+    \item Let $V$ be a finite-dimensional real $G$-representation. We call the one-point compactification of $V$ its \textbi{representation sphere}, and we regard it as a based $G$-space with the basepoint at infinity.
+    \item If $V$ is endowned with a scalar product, we denote by $S(V)$ its unit sphere.
+\end{itemize}    
+\end{defin} 
+
+Note that for $\bR^n$ with a trivial action, the representation sphere is $S^n$ and the unit sphere is $S^{n-1}$.
+
+\begin{prop}
+    For any finite group $G$ (actually, for any compact Lie group) and $V$ be a finite-dimensional real orthogonal $G$-representation. Then the representation sphere $S^V$ admits a $G$-$CW$ structure.
+\end{prop} 
+
+%\begin{defin}
+    %The \textbi{orbit category} $\mathcal{O}_G$ of a finite group $G$ is the category with objects the $G$-sets $G/H$ for %all subgroups $H\leq G$, and $G$-equivariant maps as morphisms.
+%\end{defin}
+
+
+\subsection*{Spaces and the Category $\mathbf{O}$}
+
+We will be working with \textit{compactly generated weakly Hausdorff} spaces, which we now simplify to just \textit{spaces}. We denote the category of such spaces by $\mathsf{T}$ and the category of based spaces by $\mathsf{T}_*$. Similarly, we have the categories $G\mathsf{T}$ and $G\mathsf{T}_*$ of $G$-spaces and based $G$-spaces, with morphisms being (based) $G$-equivariant maps.
+\begin{rem}
+    Recall that the category $\mathsf{T}$ has small (co)limits.
+\end{rem} 
+
+\begin{defin}
+    $G$-universe, \cite[def. 1.1.12]{GHT}.
+\end{defin}
+
+We fix a complete $G$-universe $\mathcal{U}_G$ and write $s(\mathcal{U}_G)$ for the \textit{poset of finite-dimensional $G$-subrepresentations} in $\mathcal{U}_G$, ordered by inclusion. 
+
+\begin{defin} 
+    Let $V,W$ be finite-dimensional inner product spaces. 
+    \begin{itemize}
+        \item Define $L(V,W)$ to be the set of linear isometric embeddings $V\hookrightarrow W$. 
+        \item For $\varphi\in L(V,W)$, we write $\varphi^\perp$ for the orthogonal complement $W- \varphi(V)$.
+        \item We equip $L(V,W)$ with the topology induced by the bijection 
+              \begin{align*}
+                  O(W)/O(\varphi^\bot) &\to L(V,W) \\
+                  A\cdot O(\varphi^\bot) &\mapsto A\circ \varphi
+              \end{align*} \todo{Something about Stiefel manifolds}
+    \end{itemize} 
+\end{defin} 
+
+\begin{cons}
+    We define the category $\mathbf{O}$ with
+    \begin{itemize}
+        \item[Objects:] all finite-dimensional real inner product spaces.
+        \item[Morphisms:] Let $V,W$ be two objects of $\bfO$. Define $$\Hom_{\bfO}(V,W)\coloneqq \bfO(V,W)=\text{Th}(\xi(V,W))$$ i.e., the Thom space of the vector bundle 
+        \[\begin{tikzcd}
+            \xi(V,W)\coloneqq \{(w,\varphi)\in W\times L(V,W)\ |\ w\perp\varphi(V)\} \arrow[d, "pr_2"] \\
+            L(V,W)
+        \end{tikzcd}\]
+        \item[Composition:] 
+        \begin{align*}
+            \circ: \bfO(V,W)\wedge \bfO(U,V)&\to \bfO(U,W) \\
+            (w,\varphi)\wedge (v,\psi) &\mapsto (w+\varphi(v), \psi\circ\varphi)
+        \end{align*}
+    \end{itemize} \todo{Some reference for Thom spaces. Also, is $L(V,W)$ compact?}
+\end{cons}
+
+\section{Equivariant Orthogonal Spectra}
+
+\begin{defin}
+    Fix a finite group (more generally, a compact Lie group) $G$.
+    \begin{itemize}
+        \item An \textbi{orthogonal spectrum} is a based continuous functor $\bfO\to \mathsf{T}_*$.
+        \item An \textbi{orthogonal $G$-spectrum} is a based continuous functor $\bfO\to G\mathsf{T}_*$. 
+    \end{itemize}
+    A morphism of orthogonal ($G$-)spectra is a natural transformation of functors. We denote the category of orthogonal spectra (resp. orthogonal $G$-spectra) by $\mathsf{Sp}$ (resp. $G\mathsf{Sp}$).
+\end{defin}
+
+\subsection*{Getting An Explicit Description}
+
+\todo[inline]{To do:\newline
+    1. Translation from functor to explicit definition. I need a better intuition for why these hom-sets become $O(n)$.\newline
+    2. How to take values on any $G$-representation.}
+
+\begin{defin}
+    An \textbi{orthogonal $G$-spectrum} consists of the following data:
+    \begin{itemize}
+        \item A sequence of pointed spaces $X_n$ for all $n\in\bN$.
+        \item A basepoint-prerserving left $O(n)\times G$-action on every $X_n$.
+        \item $G$-equivariant based structure maps $\sigma_n:X_n\wedge S^1\to X_{n+1}$, with respect to the action given by the $G$-action on $X_n$ and $X_{n+1}$ and the trivial action on the sphere. 
+    \end{itemize}
+    This is subject to the condition that the iterated structure maps $\sigma^m:X_n\wedge S^m\to X_{n+m}$ are $O(n)\times O(m)$-equivariant.
+\end{defin}
+
+\begin{rem}
+    The condition above implies that the maps $\sigma^m$ are also equivariant with respect to the $G$-actions on $X_n$ and $X_{n+m}$ and the trivial $G$-action on $S^m$.
+\end{rem}
+
+\subsection*{Examples}
+We now use this second description to provide examples, as we can work similarly to the case of ``non-equivariant, non-orthogonal'' spectra we already know.
+
+\begin{ex}[Non-equivariant sphere spectrum]
+    We define the orthogonal sphere spectrum $\mathbb{S}$ as $\mathbb{S}_n\coloneqq S^n$, with the $O(n)$-action coming from the $O(n)$-action on $\bR^n$. The structure maps are given by the canonical homeomorphism $S^n\wedge S^1\to S^{n+1}$.  
+\end{ex}
+
+\begin{rem}
+    This carries the extra structure of a ring spectrum, and is, in fact, the initial orthogonal ring spectrum.
+\end{rem}
+
+\begin{ex}[Orthogonal $G$-spectra from non-equivariant orthogonal spectra]\label{triv}
+    Let $X$ be an equivariant orthogonal spectrum. We can turn this into a $G$-spectrum by letting $G$ act trivially.
+\end{ex}
+
+\begin{rem}
+    We described how an orthogonal $G$-spectrum can take values on all $G$-representations. One may assume that the trivial action added in \ref{triv} stays trivial for all representations, but this is not true! For example, if $O(n)$ acts non-trivially, e.g. as in the sphere spectrum, then take a non-trivial orthogonal $G$-representation $G\to O(n)$. The action on $X_n$ is given by $G\times X_n\to O(n)\times X_n\to X_n$.
+\end{rem}
+
+\begin{ex}[Suspension spectra]
+    (\cite{Sch23}, Ex. 2.11).   
+\end{ex}
+
+We now want to outline the construction of Eilenberg-Mac Lane spectra. We need a construction of EM-spaces that inherits a ``good'' $O(n)$-action from spheres and a $G$-action from a given abelian group, thus we outline a way to define them using linearization. We point to \cite[6.4]{AGP} for details and \href{https://ncatlab.org/nlab/show/Eilenberg-Mac+Lane+space#via_linearization_of_spheres}{nLab} for a quick overview.
+
+\begin{defin}
+    Let $M$ be an abelian group and $n\in \bN$. The \textbi{reduced $M$-linearization} $M[S^n]_*$ of $S^n$ is the quotient $$M[S^n]_*\coloneqq \coprod_{k\in\bN}M^k\times (S^n)^k\big/\sim$$
+    seen as finite formal sums $\sum m_ix_i$, under the relation that any multiple of the basepoint of $S^n$ is identified with $0_G$. 
+\end{defin}
+
+\begin{prop}
+    Let $M$ be a countable abelian group. then $M[S^n]_*$ is a $K(M,n)$.
+\end{prop}
+
+\begin{ex}[Eilenberg-Mac Lane spectra]
+    Let $M$ be a (countable) abelian group with an additive $G$-action. We define the Eilenberg-Mac Lane spectrum $HM$ by $(HM)_n\coloneqq M[S^n]_*$, with the $O(n)$-action coming from the $O(n)$-action on $S^n$ and the $G$-action coming from the $G$-action on $M$. We define the structure maps
+    \begin{align*}
+        \sigma_n: M[S^n]_*\wedge S^1&\to M[S^{n+1}]_* \\
+        \sum_i m_ix_i \wedge y &\mapsto \sum_i m_i(x_i\wedge y)
+    \end{align*}
+    \todo[inline]{add the fixed point stuff}
+\end{ex} \todo{Should I talk about the monoidal structure? I'll just mention it.}
+
+\subsection*{More structure on $G\mathsf{Sp}$}
+
+\begin{cons}[Smash product-mapping space adjunction for orthogonal $G$-spectra]
+    Let $A$ be pointed $G$-space and $X,Y$ be orthogonal $G$-spectra. We can define the orthogonal $G$-spectra:
+    \begin{itemize}
+        \item $X\wedge A$, by setting $(X\wedge A)(V)\coloneqq X(V)\wedge A$, with diagonal $G$-action, $O(V)$-action via its action on $X(V)$ and structure maps $$S^V\wedge X(W)\wedge A\xrightarrow{\sigma_{V,W}\wedge id_A} X(V\oplus W)\wedge A$$
+        \item $\text{map}_*(A,X)$, by setting $\text{map}_*(A,X)(V)\coloneqq \text{map}_*(A,X(V))$, with $G$-action by conjugation, $O(V)$-action via its action on $X(V)$ and structure maps 
+        \begin{align*}
+            S^V\wedge \text{map}_*(A, X(W))&\to \text{map}_*(A, S^V\wedge X(W))\xrightarrow{\text{map}_*(A, \sigma_{V,W})} \text{map}_*(A, X(V\oplus W)) \\
+            z\wedge f&\mapsto (a\mapsto z\wedge f(a))
+        \end{align*}
+    \end{itemize}
+    Then there is an adjunction $$\Hom_{G\mathsf{Sp}}(X, \text{map}_*(A,Y))\cong\Hom_{G\mathsf{Sp}}(X\wedge A, Y)$$
+    \todo{More details? (can get loop space!)}
+\end{cons}
+
+\begin{cons}[Shifts]
+    \todo[inline]{Probably no time for this but I'll write something down.}
+\end{cons}
+
+\begin{cons}
+    \todo[inline]{\cite[3.1.9]{GHT} do it in the generality described after 3.13}
+\end{cons}
+
+\section{Equivariant Homotopy Groups}
+
+Earlier we defined the poset $s(\mathcal{U}_G)$, ordered by inclusion. Knowing the definition of the ``usual'' stable homotopy groups of spectra, one might suspect that we now have to take some colimit over this poset. We will now describe the functor we will be taking colimit of, starting with $\pi^G_0$.
+
+\begin{cons}
+    Define a functor 
+    \begin{align*}
+        s(\mathcal{U}_G)&\to \mathsf{Set} \\
+        V&\mapsto [S^V,X(V)]^G_*
+    \end{align*} where $[S^V,X(V)]^G_*$ is the set of $G$-equivariant homotopy classes of based $G$-maps. On morphisms, we take an inclusion $V\xhookrightarrow{i} W$ to the map 
+    \begin{align*}
+        i_*: [S^V,X(V)]^G_*&\to [S^W,X(W)]^G_* \\
+        [f] &\mapsto [i_*f]
+    \end{align*}
+\end{cons}
+
+\begin{defin}
+    The 0th \textbi{equivariant homotopy group} $\pi_0^G(X)$ is the colimit $$\pi_0^G(X)\coloneqq\colim_{V\in s(\mathcal{U}_G)}[S^V,X(V)]^G_*$$
+\end{defin}
+
+We now have to make this homotopy group actually be a \textit{group}. For this, we work with the $G$-equivariant homotopy classes to get bijections to another group. The following segment is taken directly from \cite[3.10]{GHT}.
+\begin{cons}[Group structure on $\pi^G_0$]
+    Let $V$ be a finite-dimensional $G$-subrepresentation of $\mathcal{U}_G$ with nontrivial fixed points, and let $v_0\in V$ be a $G$-fixed unit vector. Denote by $V^\perp$ the orthogonal complement of $v_0$ in $V$. Then the decomposition \begin{align*}
+        \bR\oplus V^\perp&\xrightarrow{\cong} V\\
+        (t,v) &\mapsto tv_0+v
+    \end{align*} extends to one-point compactification and becomes a $G$-equivariant homeomorphism $S^1\wedge S^{V^\perp}\cong S^V$. Then using the smash-hom adjunction (now for based $G$-spaces) gives us a natural (in $X$) bijection $$[S^V, X(V)]^G_*\cong [S^1, \text{map}^G_*(S^{V^\perp}, X(V))]_*=\pi_1(\text{map}^G_*(S^{V^\perp}, X(V))$$
+    We then give $[S^V, X(V)]^G_*$ a group structure by making this bijection a group isomorphism.
+\end{cons}
+
+\begin{prop}
+    Let $V$ be such that the fixed point space $V^G$ has dimension at least 2. Then
+    \begin{enumerate}
+        \item The group structure on $[S^V, X(V)]^G_*$ is commutative and independent of the choice of $G$-fixed unit vector.
+        \item  If $W$ is another finite-dimensional $G$-subrepresentation of $\mathcal{U}_G$ containing $V$, then the map $$i_*:[S^V, X(V)]^G_*\to [S^W, X(W)]^G_*$$ is a group homomorphism.
+    \end{enumerate}
+\end{prop}
+
+Note that the $G$-subrepresentations that satisfy this conditions are cofinal in $s(\mathcal{U}_G)$. Now, by part (2.) we get that the group structure carries over to the colimit $\pi^G_0(X)$, and (1.) tells us that this group structure is abelian. 
+
+We now use the same idea to introduce $\bZ$-graded equivariant homotopy groups, which also come with an abelian group structure. 
+
+\begin{defin}
+    Let $X$ be an orthogonal $G$-spectrum and $k\in\bN$. We set
+    \begin{itemize}
+        \item $\pi^G_k(X)\coloneqq\colim_{V\in s(\mathcal{U}_G)}[S^{V\oplus \bR^k},X(V)]^G_*$
+        \item $\pi^G_{-k}(X)\coloneqq\colim_{V\in s(\mathcal{U}_G)}[S^{V},X(V\oplus \bR^k)]^G_*$
+    \end{itemize}
+\end{defin}
+
+\begin{defin}
+    A morphism $f:X\to Y$ of orthogonal $G$-spectra is a $\underline{\pi}_*$-\textbi{isomorphism} if the induced map $\pi^H_k(f):\pi^H_k(X)\to\pi^H_k(Y)$ is an isomorphism for all $k\in\bZ$ and all closed subgroups $H\leq G$.
+\end{defin}
+
+There is one final bit of subtlety we need to deal with: We need to talk about how $G$-maps from representation spheres (with reprect to \textit{any} finite-dimensional $G$-representation) to spaces in our spectrum represent well-defined classes in the equivariant homotopy groups.
+
+\begin{cons}
+    Let $f:S^{V\oplus \bR^{n+k}}\to X(V\oplus \bR^n)$ be a $G$-equivariant map, where $k\in \bZ$, $n\in\bN$, $n+k\geq 0$ and $V$ is a finite-dimensional $G$-representation. \\ \\
+    \begin{minipage}{.475\textwidth}
+        For $k\geq 0$, choose a $G$-equivariant linear isometry $$j:V\oplus\bR^n\to \Tilde{V}\in s(\mathcal{U}_G)$$ Define $\langle f\rangle\in\pi^G_k(X)$ to be the class represented by the composite 
+        \[\begin{tikzcd}
+            S^{\Tilde{V}\oplus\bR^k} \arrow[r, "(S^{j\oplus \bR^k})^{-1}", "\cong"'] \arrow[d] & S^{V\oplus\bR^{n+k}} \arrow[d, "f"] \\ X(\Tilde{V}) &  X(V\oplus\bR^n) \arrow[l, "X(j)", "\cong"']
+        \end{tikzcd}\]
+    \end{minipage}  
+    \begin{minipage}{.05\textwidth} \ \end{minipage}
+    \begin{minipage}{.475\textwidth}
+        For $k\leq 0$, choose a $G$-equivariant linear isometry $$j:V\oplus\bR^{n+k}\to \Tilde{V}\in s(\mathcal{U}_G)$$ Define $\langle f\rangle\in\pi^G_k(X)$ to be the class represented by the composite
+        \[\begin{tikzcd}
+            S^{\Tilde{V}} \arrow[r, "(S^{j})^{-1}", "\cong"'] \arrow[d] & S^{V\oplus\bR^{n+k}} \arrow[d, "f"] \\ X(\Tilde{V}) &  X(V\oplus\bR^{-k}) \arrow[l, "X(j)", "\cong"']
+        \end{tikzcd}\]
+    \end{minipage}
+\end{cons}
+
+Note that there is a choice of isometry in this construction, so we make sure that this does not change thins, and also that taking embeddings again leaves the classes unchanged.
+
+\begin{prop}\cite[3.1.14]{GHT}
+    Let $G$ be a compact Lie group and $X$ an orthogonal $G$-spectrum. Let $V$ be a $G$-representation and $f:S^{V\oplus\bR^{n+k}}\to X(V\oplus\bR^n)$ a based continuous $G$-map, where $n\in\bN$ and $k\in\bZ$ such that $n+k\geq 0$. Then:
+    \begin{enumerate}
+        \item The class $\langle f\rangle\in\pi^G_k(X)$ is independent of the choice of linear isometry onto a subrepresentation of $\mathcal{U}_G$.
+        \item For every $G$-equivariant isometric embedding $\varphi:V\hookrightarrow W$, the relation $\langle \varphi_*f\rangle = \langle f\rangle$ holds in $\pi^G_k(X)$.
+    \end{enumerate}
+\end{prop}
+
+\begin{proof}[Proof sketch]
+    \begin{enumerate}
+        \item[(1.)] For $k\geq 0$: Let $j_1:V\oplus \bR^n\to U_1$ and $j_2:V\oplus \bR^n\to U_2$ be $G$-equivariant linear isometries, with $U_1,U_2\in s(\mathcal{U}_G)$. We can choose a third isometry $j':V\oplus \bR^n\to U'\in s(\mathcal{U}_G)$ such that $U'$ is orthogonal to both $U_1$ and $U_2$. 
+        \todo[inline]{Complete the proof: A word about how they are homotopic. Have we now shown that they are the same in the colimit?}
+    \end{enumerate}
+\end{proof}
+
+\begin{thebibliography}{}
+    \bibitem[Sch18]{GHT}{Stefan Schwede, \href{https://www.math.uni-bonn.de/people/schwede/global.pdf}{Global homotopy theory}. New Mathematical Monographs 34. Cambridge University Press, 2018.}
+    \bibitem[Sch23]{Sch23}{Stefan Schwede, \href{https://www.math.uni-bonn.de/people/schwede/equivariant.pdf}{Lecture notes on equivariant stable homotopy theory}.}
+    \bibitem[AGP]{AGP}{Marcelo Aguilar, Samuel Gitler, Carlos Prieto, \href{https://link.springer.com/book/10.1007/b97586}{Algebraic topology from a homotopical viewpoint}. Springer, 2002.}
+\end{thebibliography}
+
+\end{document}
