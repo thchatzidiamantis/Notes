@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.2.24)  23 APR 2024 13:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.2.24)  23 APR 2024 13:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2217,7 +2217,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  110i,20n,106p,10958b,1137s stack positions out of 5000i,500n,10000p,200000b,80000s
  <C:\Users\Theofanis\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi623\ecsx1200.pk>{C:/Users/Theofanis/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/ly1/texnansi.enc} <C:\Users\Theofanis\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi623\ecsx1440.pk> <C:\Users\Theofanis\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi623\ecsx2074.pk><C:/Users/Theofanis/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchb8a.pfb><C:/Users/Theofanis/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchbi8a.pfb><C:/Users/Theofanis/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchr8a.pfb><C:/Users/Theofanis/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchri8a.pfb><C:/Users/Theofanis/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/Users/Theofanis/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Users/Theofanis/AppData/Local/Programs/MiKTeX/fonts/type1/mathdesign/mdbch/md-chr7m.pfb><C:/Users/Theofanis/AppData/Local/Programs/MiKTeX/fonts/type1/mathdesign/mdbch/md-chr7t.pfb><C:/Users/Theofanis/AppData/Local/Programs/MiKTeX/fonts/type1/mathdesign/mdbch/md-chr7v.pfb><C:/Users/Theofanis/AppData/Local/Programs/MiKTeX/fonts/type1/mathdesign/mdbch/md-chr7y.pfb><C:/Users/Theofanis/AppData/Local/Programs/MiKTeX/fonts/type1/mathdesign/mdbch/md-chr8t.pfb><C:/Users/Theofanis/AppData/Local/Programs/MiKTeX/fonts/type1/mathdesign/mdbch/md-chri7m.pfb><C:/Users/Theofanis/AppData/Local/Programs/MiKTeX/fonts/type1/mathdesign/mdbch/md-chri8t.pfb><C:/Users/Theofanis/AppData/Local/Programs/MiKTeX/fonts/type1/mathdesign/mdbch/md-chrma.pfb>
-Output written on equivariant.pdf (11 pages, 203456 bytes).
+Output written on equivariant.pdf (11 pages, 203455 bytes).
 PDF statistics:
  331 PDF objects out of 1000 (max. 8388607)
  75 named destinations out of 1000 (max. 500000)
